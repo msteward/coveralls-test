@@ -9,7 +9,7 @@ jobs:
         runs-on: ubuntu-20.04
         strategy:
             matrix:
-                node-version: [14.x]
+                node-version: [16.x]
         steps:
             - uses: actions/checkout@v2
             - name: Setup Node
@@ -26,5 +26,7 @@ jobs:
                       ${{ runner.os }}-npm-v2-
             - name: Install Dependencies
               run: npm ci
-            - name: Jest tests and collect coverage
-              run: npm run test -- --coverage
+            - name: Backend Tests
+              run: npm run test:backend -- --coverage
+            - name: Frontend Tests
+              run: npm run test:frontend -- --coverage

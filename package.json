@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test:backend": "jest --projects backend",
-    "test:frontend": "jest --projects frontend"
+    "test:backend": "jest backend",
+    "test:frontend": "jest frontend"
   },
   "author": "",
   "license": "ISC",
