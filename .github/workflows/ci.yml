@@ -1,0 +1,30 @@
+name: Tests
+
+on:
+  pull_request
+
+jobs:
+    tests:
+        name: Tests
+        runs-on: ubuntu-20.04
+        strategy:
+            matrix:
+                node-version: [14.x]
+        steps:
+            - uses: actions/checkout@v2
+            - name: Setup Node
+              uses: actions/setup-node@v2
+              with:
+                  node-version: ${{ matrix.node-version }}
+            - name: Cache NPM cache
+              uses: actions/cache@v2
+              id: npm
+              with:
+                  path: ~/.npm
+                  key: ${{ runner.os }}-npm-v2-${{ hashFiles('**/package-lock.json') }}
+                  restore-keys: |
+                      ${{ runner.os }}-npm-v2-
+            - name: Install Dependencies
+              run: npm ci
+            - name: Jest tests and collect coverage
+              run: npm run test -- --coverage
